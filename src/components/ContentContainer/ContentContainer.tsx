@@ -76,12 +76,15 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
                 return <input key={item.id} className={styles.inputMenuElement} placeholder={item.name} name={item.id} type='number'/>
               }
               else{
-                return item.values?.map(v => (
+                return <div className={styles.checkBoxMenuParent}>
+                  <p>{item.name}</p>
+                  {item.values?.map(v => (
                   <div key={v} className={styles.checkBoxMenuElement}>
                     {v}
                     <CustomCheckBox onChange={() => {}} name={item.id} value={v} />
                   </div>
-                ));
+                ))}
+                </div>
               }
             })}
             <button className={styles.button} type='submit'>Submit</button>

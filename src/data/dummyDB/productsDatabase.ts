@@ -97,7 +97,7 @@ export const products: ProductModel[] = [
         price: 199.99,
         currency: 'zł',
         description: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-        specification: [{id: '400', title: 'producent', value: 'Oink'}],
+        specification: [{id: '400', title: 'producent', value: 'Oink'},{id: '407', title: 'Frequency', value: '500 Hz'},{id: '406', title: 'Size', value: "25"}],
         image: "https://m.media-amazon.com/images/I/711U7Cqp-LL._AC_SL1500_.jpg",
         productType: types.find(t => t.id === '8') || types[0]
     },
@@ -108,7 +108,7 @@ export const products: ProductModel[] = [
         oldPrice: -1,
         currency: 'zł',
         description: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-        specification: [{id: '400', title: 'producent', value: 'Boing'}],
+        specification: [{id: '400', title: 'producent', value: 'Boing'},{id: '407', title: 'Frequency', value: '60 Hz'},{id: '406', title: 'Size', value: "23"}],
         image: "https://cdn.thewirecutter.com/wp-content/media/2021/05/27-inch-monitor-2048px-1572.jpg",
         productType: types.find(t => t.id === '8') || types[0]
     },
@@ -119,7 +119,7 @@ export const products: ProductModel[] = [
         price: 19.76,
         currency: 'zł',
         description: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-        specification: [{id: '400', title: 'producent', value: 'Bang'},{id: '401', title: 'Frequency', value: '60 Hz'},{id: '402', title: 'Size', value: "24''"}], 
+        specification: [{id: '400', title: 'producent', value: 'Bang'},{id: '407', title: 'Frequency', value: '144 Hz'},{id: '406', title: 'Size', value: "24"}], 
         image: "https://www.bhphotovideo.com/images/images2000x2000/samsung_s27c350h_27_16_9_led_971590.jpg",
         productType: types.find(t => t.id === '8') || types[0]
     },

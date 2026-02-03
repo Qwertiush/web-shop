@@ -18,8 +18,6 @@ export const types: ProductType[] = [
             productTypeParameters[1],
             productTypeParameters[2],
             productTypeParameters[3],
-            productTypeParameters[4],
-            productTypeParameters[5],
         ]
     },
     {
@@ -99,9 +97,8 @@ export const types: ProductType[] = [
             productTypeParameters[0],
             productTypeParameters[1],
             productTypeParameters[2],
-            productTypeParameters[3],
-            productTypeParameters[7],
-            productTypeParameters[8],
+            productTypeParameters[4],
+            productTypeParameters[5],
         ]
         
     },
