@@ -5,7 +5,7 @@ export const productTypeParameters: ProductTypeParameter[] = [
         id: '400',
         name: 'producer',
         type: 'dropdown',
-        values: ['Asus', 'Gigabyte', 'Aourus', 'AlmostRAM', 'UBRAM']
+        values: ['Asus', 'Gigabyte', 'Aourus', 'AlmostRAM', 'UBRAM', 'hehaRAM']
     },
     {
         id: '501',
@@ -18,19 +18,10 @@ export const productTypeParameters: ProductTypeParameter[] = [
         type: 'input'
     },
     {
-        id: '403',
-        name: 'DDR3',
-        type: 'checkbox'
-    },
-    {
         id: '404',
-        name: 'DDR4',
-        type: 'checkbox'
-    },
-    {
-        id: '405',
-        name: 'DDR5',
-        type: 'checkbox'
+        name: 'RAM_Architecture',
+        type: 'checkbox',
+        values: ['DDR3', 'DDR4', 'DDR5']
     },
     {
         id: '406',

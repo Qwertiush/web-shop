@@ -33,14 +33,17 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
   },[searchPhrase]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 🚫 stop reload
+    e.preventDefault();
     console.log('submit without reload');
 
     const formData = new FormData(e.currentTarget);
-    const result: Record<string, string> = {};
+    const result: Record<string, string[]> = {};
 
     for (const [key, value] of formData.entries()) {
-      result[key] = value.toString();
+      if(!result[key]){
+        result[key] = [];
+      }
+      result[key].push(value.toString());
     }
     setItems(getFilteredItems(result, itemParams, searchPhrase));
   };
@@ -73,10 +76,15 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
                 return <input key={item.id} className={styles.inputMenuElement} placeholder={item.name} name={item.id} type='number'/>
               }
               else{
-                return <div key={item.id} className={styles.checkBoxMenuElement}>{item.name}<CustomCheckBox onChange={()=>{}}/></div> //TODO: rozbudować o obsłógę name={item.id}
+                return item.values?.map(v => (
+                  <div key={v} className={styles.checkBoxMenuElement}>
+                    {v}
+                    <CustomCheckBox onChange={() => {}} name={item.id} value={v} />
+                  </div>
+                ));
               }
             })}
-            <button type='submit'>Submit</button>
+            <button className={styles.button} type='submit'>Submit</button>
         </form>
         <div className={styles.centerPanel}>
           <div className={styles.productsParent}>

@@ -9,7 +9,7 @@ export const products: ProductModel[] = [
         price: 999.99,
         currency: 'zł',
         description: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-        specification: [{id: '400', title: 'Producent', value: 'UBRAM'},{id: '401', title: 'Size', value: "16GB"},{id: '402', title: 'Mhz', value: "6200"},{id: '403', title: 'CL', value: "16"},{id: '401', title: 'Architecture', value: "DDR5"}],
+        specification: [{id: '400', title: 'Producent', value: 'UBRAM'},{id: '401', title: 'Size', value: "16GB"},{id: '402', title: 'Mhz', value: "6200"},{id: '403', title: 'CL', value: "16"},{id: '404', title: 'Architecture', value: "DDR5"}],
         image: "https://tse4.mm.bing.net/th/id/OIP.pKDU4aJMs6Ld8WhkVYXGbwHaEK?pid=Api", 
         productType: types.find(t => t.id === '0') || types[0]
     },
@@ -19,8 +19,8 @@ export const products: ProductModel[] = [
         oldPrice: 782.86,
         price: 657.21,
         currency: 'zł',
-        description: "This is still a very good RAM my friend, fast as donkey on the cocaine.",
-        specification: [{id: '400', title: 'Producent', value: 'AlmostRAM'},{id: '401', title: 'Size (GB)', value: "256"},{id: '402', title: 'Mhz', value: "6200"},{id: '403', title: 'CL', value: "16"},{id: '401', title: 'Architecture', value: "DDR5"}],
+        description: "This is a very good RAM my friend, fast gepard.",
+        specification: [{id: '400', title: 'Producent', value: 'AlmostRAM'},{id: '401', title: 'Size (GB)', value: "256"},{id: '402', title: 'Mhz', value: "6200"},{id: '403', title: 'CL', value: "16"},{id: '404', title: 'Architecture', value: "DDR5"}],
         image: "https://cdn.mos.cms.futurecdn.net/8ggu44ntut7sHj5FoRAehE.jpg",
         productType: types.find(t => t.id === '0') || types[0]
     },
@@ -32,7 +32,7 @@ export const products: ProductModel[] = [
         currency: 'zł',
         description: "Very fine", 
         image: "https://www.bhphotovideo.com/images/images1000x1000/crucial_cp2k16g56c46u5_32gb_5600_mhz_ddr5_1763724.jpg",
-        specification: [{id: '400', title: 'producent', value: 'hehaRAM'}],
+        specification: [{id: '400', title: 'producent', value: 'hehaRAM'},{id: '404', title: 'Architecture', value: "DDR5"}],
         productType: types.find(t => t.id === '0') || types[0]
     },
     { 
@@ -43,7 +43,7 @@ export const products: ProductModel[] = [
         currency: 'zł',
         description: "Very fine", 
         image: "https://www.bhphotovideo.com/images/images1000x1000/crucial_cp2k16g56c46u5_32gb_5600_mhz_ddr5_1763724.jpg",
-        specification: [{id: '400', title: 'producent', value: 'hehaRAM'}],
+        specification: [{id: '400', title: 'producent', value: 'hehaRAM'},{id: '404', title: 'Architecture', value: "DDR5"}],
         productType: types.find(t => t.id === '0') || types[0]
     },
     { 
@@ -54,7 +54,7 @@ export const products: ProductModel[] = [
         currency: 'zł',
         description: "Very fine", 
         image: "https://www.bhphotovideo.com/images/images1000x1000/crucial_cp2k16g56c46u5_32gb_5600_mhz_ddr5_1763724.jpg",
-        specification: [{id: '400', title: 'producent', value: 'hehaRAM'}],
+        specification: [{id: '400', title: 'producent', value: 'hehaRAM'},{id: '404', title: 'Architecture', value: "DDR5"}],
         productType: types.find(t => t.id === '0') || types[0]
     },
     { 
@@ -65,7 +65,7 @@ export const products: ProductModel[] = [
         currency: 'zł',
         description: "Very fine", 
         image: "https://www.bhphotovideo.com/images/images1000x1000/crucial_cp2k16g56c46u5_32gb_5600_mhz_ddr5_1763724.jpg",
-        specification: [{id: '400', title: 'producent', value: 'hehaRAM'}],
+        specification: [{id: '400', title: 'producent', value: 'hehaRAM'},{id: '404', title: 'Architecture', value: "DDR5"}],
         productType: types.find(t => t.id === '0') || types[0]
     },
     { 
@@ -76,18 +76,18 @@ export const products: ProductModel[] = [
         currency: 'zł',
         description: "Very fine", 
         image: "https://www.bhphotovideo.com/images/images1000x1000/crucial_cp2k16g56c46u5_32gb_5600_mhz_ddr5_1763724.jpg",
-        specification: [{id: '400', title: 'producent', value: 'hehaRAM'}],
+        specification: [{id: '400', title: 'producent', value: 'hehaRAM'},{id: '404', title: 'Architecture', value: "DDR5"}],
         productType: types.find(t => t.id === '0') || types[0]
     },
     { 
         id: "8",
-        title: 'RAM DDR5 6000Mhz CL24 hehaRAM', 
+        title: 'RAM DDR5 6000Mhz CL24 hehaRAM DDR4', 
         price: 975.53,
         oldPrice: -1,
         currency: 'zł',
         description: "Very fine", 
         image: "https://www.bhphotovideo.com/images/images1000x1000/crucial_cp2k16g56c46u5_32gb_5600_mhz_ddr5_1763724.jpg",
-        specification: [{id: '400', title: 'producent', value: 'hehaRAM'}],
+        specification: [{id: '400', title: 'producent', value: 'hehaRAM'},{id: '404', title: 'Architecture', value: "DDR4"}],
         productType: types.find(t => t.id === '0') || types[0]
     },
     {
@@ -152,7 +152,7 @@ export const products: ProductModel[] = [
         price: 52,
         currency: 'zł',
         description: "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-        specification: [{id: '400', title: 'Producent', value: 'UBRAM'},{id: '401', title: 'Size', value: "256MB"},{id: '402', title: 'Mhz', value: "6200"},{id: '403', title: 'CL', value: "16"},{id: '401', title: 'Architecture', value: "DDR5"}],
+        specification: [{id: '400', title: 'Producent', value: 'UBRAM'},{id: '401', title: 'Size', value: "256MB"},{id: '402', title: 'Mhz', value: "6200"},{id: '403', title: 'CL', value: "16"},{id: '404', title: 'Architecture', value: "DDR5"}],
         image: "https://tse4.mm.bing.net/th/id/OIP.pKDU4aJMs6Ld8WhkVYXGbwHaEK?pid=Api", 
         productType: types.find(t => t.id === '0') || types[0]
     },

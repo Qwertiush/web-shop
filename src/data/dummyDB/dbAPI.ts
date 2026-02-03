@@ -14,7 +14,7 @@ export function getItems(key: string):ProductModel[]{
     return products.filter(item => item.productType.id === productType.id);
 }
 
-export function getFilteredItems(params: Record<string, string>, type: ProductType | undefined, searchPhrase: string):ProductModel[]{
+export function getFilteredItems(params: Record<string, string[]>, type: ProductType | undefined, searchPhrase: string):ProductModel[]{
 
     let result: ProductModel[];
 
@@ -31,19 +31,24 @@ export function getFilteredItems(params: Record<string, string>, type: ProductTy
     console.log(result);
     
 
-    Object.entries(params).forEach(([key, value]) => {
-        console.log(key, value);
+    Object.entries(params).forEach(([key, values]) => {
+        console.log(key, values);
 
-        if(key == '501' && value !== ''){
-            result = result.filter(t => t.price >= parseFloat(value))
+        if (!values || values.length === 0) return;
+        if (values.every(v => v === '')) return;
+
+        if(key == '501' && values[0] !== ''){
+            result = result.filter(t => t.price >= parseFloat(values[0]))
         }
-        else if(key == '502' && value !== ''){
-            result = result.filter(t => t.price <= parseFloat(value))
+        else if(key == '502' && values[0] !== ''){
+            result = result.filter(t => t.price <= parseFloat(values[0]))
         }
-        else if(value !== ''){
-            result = products.filter(product =>
+        else{
+            result = result.filter(product =>
                 product.specification.some(spec =>
-                    spec.id === key && spec.value.toLowerCase() === value.toLowerCase()
+                    spec.id === key &&
+                    values.some(v => v.toLowerCase() === spec.value.toLowerCase())
+                    
                 )
             );
         }
