@@ -47,6 +47,9 @@ The project focuses on advanced client-side filtering, search, and state managem
   <a href="screenshots/gifs/2.gif">
     <img src="screenshots/gifs/2.gif" width="900" />
   </a>
+  <a href="screenshots/gifs/3.gif">
+    <img src="screenshots/gifs/3.gif" width="900" />
+  </a>
 </p>
 
 More screenshots available in the `/screenshots` directory.
