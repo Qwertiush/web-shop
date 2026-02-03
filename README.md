@@ -42,7 +42,7 @@ The project focuses on advanced client-side filtering, search, and state managem
 ## 📸 Screenshots
 <p align="center">
   <a href="screenshots/gifs/Animation.gif">
-    <img src="screenshots/gifs/Animation.gif" width="600" />
+    <img src="screenshots/gifs/Animation.gif" width="900" />
   </a>
 </p>
 
