@@ -1,0 +1,81 @@
+.pageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.imageSection {
+  flex: 1 1 400px;
+  max-width: 500px;
+  img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+}
+
+.detailsSection {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .priceContainer {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+
+    .salePrice {
+      font-size: 1rem;
+      color: var(--wrong);
+      text-decoration: line-through;
+    }
+
+    .originalPrice {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+  }
+
+  .description {
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .specifications {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .specItem {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+  }
+
+  .addToCartButton {
+    padding: 12px 20px;
+    background-color:var(--wrong);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: var(--wrong);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@use './themes';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root{
+  --fontS: 14px;
+  --fontM: 20px;
+  --fontL: 26px;
+  --fontXL: 32px;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg);
+}
