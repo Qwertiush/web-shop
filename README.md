@@ -42,7 +42,7 @@ The project focuses on advanced client-side filtering, search, and state managem
 ## 📸 Screenshots
 <p align="center">
   <a href="screenshots/gifs/Animation.gif">
-    <img src="screenshots/1.jpg" width="300" />
+    <img src="screenshots/gifs/Animation.gif" width="300" />
   </a>
 </p>
 
@@ -54,3 +54,9 @@ More screenshots available in the `/screenshots` directory.
 1. Install dependencies:
    ```bash
    npm install
+   ```
+
+2. Run application
+   ```bash
+   npm run dev
+   ```
