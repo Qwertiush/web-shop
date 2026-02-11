@@ -20,6 +20,7 @@ The project focuses on advanced client-side filtering, search, and state managem
 - Vite
 - TypeScript
 - React Router
+- SCSS
 
 ---
 
@@ -36,6 +37,7 @@ The project focuses on advanced client-side filtering, search, and state managem
 - Persistent cart state using local storage
 - Custom toast notification system with stacking support
 - Reusable component architecture with typed props
+- Visuals implemented using SCSS
 
 ---
 
@@ -46,6 +48,9 @@ The project focuses on advanced client-side filtering, search, and state managem
   </a>
   <a href="screenshots/gifs/2.gif">
     <img src="screenshots/gifs/2.gif" width="900" />
+  </a>
+  <a href="screenshots/gifs/3.gif">
+    <img src="screenshots/gifs/3.gif" width="900" />
   </a>
 </p>
 
