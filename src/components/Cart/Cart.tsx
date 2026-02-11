@@ -1,11 +1,12 @@
 import styles from './Cart.module.scss'
 import { useEffect, useState } from "react";
 import { useCart } from "../../contexts/CartContext"
-import { getItem } from "../../data/dummyDB/dbAPI";
+import { fetchItemById } from "../../data/dummyDB/dbAPI";
 import type { ItemInTheCartModel } from "../../models/cartModel";
 import { usePreferences } from '../../contexts/PreferencesContext';
 import { CartItem } from './CartItem/CartItem';
 import { useToast } from '../../contexts/ToastContext';
+import { LoadingComponent } from '../LoadingComponent/LoadingComponent';
 
 export const Cart = () => {
   const { cart, clear } = useCart();
@@ -15,37 +16,45 @@ export const Cart = () => {
   const [items, setItems] = useState<ItemInTheCartModel[]>([]);
   const [total, setTotal] = useState<number>(0);
 
-  useEffect(()=>{
-    let result: ItemInTheCartModel[] = [];
+  const [loading, setLoading] = useState<boolean>(true);
 
-    const getData = () => {
-        Object.entries(cart).forEach(([key, value]) => {
-            const item = getItem(key);
-            if(item){
-                result.push({item: item, quantity: value});
-            }
-        })
-        setItems(result);
-    }
+  useEffect(() => {
+    const getData = async () => {
+        setLoading(true);
 
-    const calculateTotal = () => {
-        let total: number = 0;
-    
-        result.forEach(({item, quantity}) => {
-            let ultimatePrice: number = item.price;
-            
-            ultimatePrice = Math.round(ultimatePrice * 100);
+        const entries = Object.entries(cart);
 
-            total += ultimatePrice * quantity;
-            
-        });
-        total = total / 100;
+        const items = await Promise.all(
+            entries.map(async ([key, quantity]) => {
+                const id = Number(key);
+                const item = await fetchItemById(id);
+
+                if (!item) return null;
+
+                return { item, quantity };
+            })
+        );
+
+        const filteredItems = items.filter(
+            (i): i is ItemInTheCartModel => i !== null
+        );
+
+        setItems(filteredItems);
+
+        // liczenie totalu TU, bo mamy dane
+        const total = filteredItems.reduce((sum, { item, quantity }) => {
+            const price = Math.round(item.price * 100);
+            return sum + price * quantity;
+        }, 0) / 100;
+
         setTotal(total);
-    }
+
+        setLoading(false);
+    };
+
     getData();
-    calculateTotal();
-    
-  },[cart])
+  }, [cart]);
+
 
   const handlePayment = () => {
     if(Object.keys(cart).length === 0){
@@ -57,6 +66,9 @@ export const Cart = () => {
     pushToast("Sorry, those items are unavalible for purchase. :(");
   }
 
+  if(loading)
+    return <LoadingComponent text='Cart is loading...'/>
+
   return (
     <div className={styles.parentContainer}>
         <div className={styles.cartHeader}>
@@ -67,7 +79,7 @@ export const Cart = () => {
         <div className={styles.items}>
             {items.map((item) => {
                 return (
-                <div className={styles.itemContainer}>
+                <div key={item.item.id} className={styles.itemContainer}>
                     <CartItem item={item}/>  
                 </div>
                 );

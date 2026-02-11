@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './Navbar.module.scss'
-import { menuElements } from '../../data/menuElements';
 import { SearchBar } from '../SearchBar/SearchBar';
 import logoDark from '/src/assets/logo-dark.png'
 import logoLight from '/src/assets/logo-light.png'
@@ -9,8 +8,12 @@ import { useLocation, useNavigate } from 'react-router';
 import { useCart } from '../../contexts/CartContext';
 import { useSearch } from '../../contexts/SearchContext';
 import { usePreferences } from '../../contexts/PreferencesContext';
+import type { MenuElementModel } from '../../models/MenuElementModel';
+import { fetchMenu } from '../../data/dummyDB/dbAPI';
+import { LoadingComponent } from '../LoadingComponent/LoadingComponent';
 
 export const Navbar: React.FC = () =>{
+  const [menu, setMenu] = useState<MenuElementModel[]>([]);
   const [hidden, setHidden] = useState(false);
 
   const { preferences, toggleTheme } = usePreferences();
@@ -19,6 +22,8 @@ export const Navbar: React.FC = () =>{
   const { setSearchInput } = useSearch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isLoading,setiSLoading] = useState<boolean>(true);
 
   const handleSearch = (val: string) => {
     setSearchInput(val);
@@ -29,6 +34,14 @@ export const Navbar: React.FC = () =>{
   };
 
   useEffect(()=>{
+    const loadMenu = async () => {
+      setiSLoading(true);
+      const response = await fetchMenu();
+      setMenu(response);
+      console.log("Menu: ", response);
+      setiSLoading(false);
+    }
+
     const handleScroll = () => {
       if(window.scrollY > 100){
         setHidden(true);
@@ -37,6 +50,8 @@ export const Navbar: React.FC = () =>{
         setHidden(false);
       }
     }
+
+    loadMenu();
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll)
@@ -56,6 +71,10 @@ export const Navbar: React.FC = () =>{
 
   const handleLogoPress = () => {
     navigate('/');
+  }
+
+  if(isLoading){
+    return <LoadingComponent text='Loading navbar...'/>
   }
 
   return (
@@ -79,12 +98,16 @@ export const Navbar: React.FC = () =>{
         </div>
         <div className={styles.menuContainer}>
             <SearchBar text='search' onClick={(val:string) => handleSearch(val)}/>
-            {menuElements.map(item => {
+            {menu.map(item => {
                 return (
                   <select key={item.title} className={styles.menuElement} onChange={(e) => handleSearch(e.target.value)} value="">
                     <option className={styles.menuElement} value="" disabled>{item.title}</option>
                     {item.dropdownElements.map(i=>{
-                      return <option className={styles.menuElement} key={i.id} value={i.title}>{i.title}</option>
+                      if(i.id === 1){
+                        return;
+                      }
+                      else
+                        return <option className={styles.menuElement} key={i.id} value={i.key}>{i.title}</option>
                     })
                     }
                   </select>

@@ -1,0 +1,16 @@
+.footerContainer{
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    font-size: var(--fontM);
+    background-color: var(--secondary);
+}
+
+.copyRightsContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}

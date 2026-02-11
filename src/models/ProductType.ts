@@ -1,13 +1,18 @@
 export interface ProductTypeParameter {
-  id: string;
+  id: number;
   name: string;
   type: 'dropdown' | 'input' | 'checkbox';
-  values?: string[]; // dropdown exclusive
+  values?: ProductParameterValues[]; // dropdown exclusive
 }
-// ProductTypeParameterValue - in DB 
 
 export interface ProductType {
   title: string;
-  id?: string;
-  productParameters: ProductTypeParameter[]
+  key?: string;
+  id?: number;
+  parameters: ProductTypeParameter[]
+}
+
+export interface ProductParameterValues{
+  id: number;
+  value: string;
 }

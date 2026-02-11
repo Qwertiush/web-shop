@@ -1,8 +1,9 @@
 .card {
   min-height: 200px;
   width: 70vw;
-  background: var(--inactive);
-  border: 3px solid #000000;
+  background: var(--primary);
+  color: var(--text);
+  border: 3px solid var(--secondary);
   box-shadow: 12px 12px 0 #000000;
   overflow: hidden;
   display: flex;
@@ -56,9 +57,7 @@
 }
 
 .oldPrice{
-    font-weight: 600;
     text-decoration: line-through;
-    color: var(--wrong);
 }
 
 .newPrice{
@@ -79,10 +78,12 @@
     min-width: 40px;
     color: var(--text);
     transition: all 0.5s ease;
+    border: 3px solid var(--secondary);
 }
 
 .button:hover{
     background-color: var(--ok);
+    scale: 1.1;
 }
 
 .buttonQty{
@@ -92,7 +93,11 @@
 
 .buttonRemove{
     @extend .button;
-    background-color: var(--wrong);
+    background-color: var(--primary);
+}
+
+.buttonRemove:hover{
+  background-color: var(--wrong);
 }
 
 @media screen and (max-width: 992px) {

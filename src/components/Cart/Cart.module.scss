@@ -34,12 +34,13 @@
 .button{
     min-height: 50px;
     min-width: 50px;
-    background-color: var(--secondary);
+    background-color: var(--primary);
+    border: 3px solid var(--secondary);
     color: var(--text);
     padding: 1rem 1rem;
     transition: all 0.5s ease;
 }
 
 .button:hover{
-    background-color: var(--teritary);
+    background-color: var(--secondary);
 }

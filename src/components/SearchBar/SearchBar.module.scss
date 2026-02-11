@@ -2,8 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 4px solid var(--bg);
-    flex: 1;
+    border: 4px solid var(--secondary);
+    width: 20%;
+    min-width: 220px;
 }
 
 .input{
@@ -17,7 +18,7 @@
     border: none;
     outline: none;
     font-size: 1rem;
-    color: var(--secendary);
+    color: var(--secondary);
 
     transition: border-color 0.3s ease;
 }
@@ -28,4 +29,16 @@
 
 .input::placeholder{
     color: var(--inactive);
+}
+
+.searchBtn{
+    height: 100%;
+    color: var(--text);
+    padding: 0 1rem;
+    background-color: var(--primary);
+    transition: all 0.5s ease;
+}
+
+.searchBtn:hover{
+    background-color: var(--secondary);
 }

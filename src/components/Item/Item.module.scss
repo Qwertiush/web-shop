@@ -1,94 +1,93 @@
 .card {
-  min-height: 300px;
-  background: var(--inactive);
-  border: 3px solid #000000;
+  min-height: 200px;
+  background: var(--primary);
+  color: var(--text);
+  border: 3px solid var(--secondary);
   box-shadow: 12px 12px 0 #000000;
   overflow: hidden;
-  transition: all 0.5s ease;
-  display: flex;
-  flex-direction: column;
+  transition: all 0.3s ease;
 }
 
 .card:hover {
-  translate: 6px;
+  transform: translate(6px, 6px);
   cursor: pointer;
 }
 
-.head {
-  padding: 1rem 1rem;
-  font-size: var(--fontM);
-  font-weight: 900;
-  width: 100%;
-  background: var(--secondary);
-  color: var(--text);
-  border-bottom: 3px solid var(--focus);
-}
-
-.productData{
+.productData {
   display: flex;
-  flex-direction: row;
   width: 100%;
+  text-decoration: none;
+  color: inherit;
+  align-items: stretch;
 }
 
-.imageContainer{
-  height: 300px;
-  flex: 3;
+.imageContainer {
+  flex: 0 0 220px;
+  height: 220px;
+  padding: 1rem;
 }
 
-.image{
+.image {
+  width: 100%;
   height: 100%;
-  width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.productInfo {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
 .content {
-  padding: 8px 12px;
   font-size: 14px;
-  font-weight: 200;
-  display: flex;
-  flex-direction: column;
-  flex: 2;
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
-.priceContainer{
-  padding-right: 1rem;
-  padding-bottom: 1rem;
+.priceContainer {
+  flex: 0 0 180px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  flex: 1;
+  align-items: flex-end;
+  gap: 0.5rem;
 }
 
-.price{
-  font-weight: 600;
-}
-
-.oldPrice{
-  font-weight: 600;
+.oldPrice {
   text-decoration: line-through;
-  color: var(--wrong);
+  font-size: var(--fontS);
 }
 
-.newPrice{
+.newPrice {
   font-weight: 800;
-  font-size: 24px;
+  font-size: var(--fontM);
 }
 
-.button{
-  padding: 1rem 1rem;
+.button {
+  padding: 0.7rem 1rem;
   background-color: var(--primary);
   color: var(--text);
-  transition: all 0.5s ease;
-}
-.button:hover{
-  background-color: var(--secondary);
+  border: 3px solid var(--secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-@media screen and (max-width: 992px) {
-  .productData{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+.button:hover {
+  background-color: var(--secondary);
+  scale: 1.1;
 }

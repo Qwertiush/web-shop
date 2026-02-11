@@ -37,8 +37,8 @@
     justify-content: space-between;
     transition: all 0.3s ease;
     color: var(--text);
-    background-color: var(--secondary);
-    border: none;
+    border: 3px solid var(--secondary);
+    background-color: var(--primary);
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
@@ -61,6 +61,7 @@
 }
 
 .inputMenuElement{
+    width: 90%;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     padding-left: 0.5rem;
@@ -81,7 +82,7 @@
 }
 
 .inputMenuElement::placeholder{
-    color: var(--secondary);
+    color: var(--inactive);
 }
 
 .checkBoxMenuElement{
@@ -103,8 +104,6 @@
     color: var(--text);
 }
 
-//right pannel => will be detachet from this component and start its own life as a regular comppnnent in the close future
-
 .productsParent{
     width: 100%;
     height: 100%;
@@ -119,12 +118,14 @@
 .button{
    width: 90%;
    padding: 0.5rem 0;
-   background-color: var(--secondary);
+   background-color: var(--primary);
+   border: 3px solid var(--secondary);
    color: var(--text);
    transition: all 0.5s ease;
 }
 .button:hover{
-   background-color: var(--primary);
+   background-color: var(--secondary);
+   scale: 1.1;
 }
 
 @media screen and (max-width: 992px) {

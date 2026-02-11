@@ -12,7 +12,7 @@ export interface ProductModel {
   oldPrice: number;
   currency: string;
   description: string;
-  specification: SpecificationModel[];
+  specifications: SpecificationModel[];
   image: string;
   id: string;
   productType: ProductType

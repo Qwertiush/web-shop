@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Button } from '../Button/Button'
 import styles from './SearchBar.module.scss'
 
 interface SearchBarProps{
@@ -18,7 +17,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({text, onClick}) =>{
           value={value}
           onChange={e => setValue(e.target.value)}
         />
-        <Button title='>' onClick={()=>onClick(value)}/>
+        <button className={styles.searchBtn} onClick={()=>onClick(value)}>{'>'}</button>
       </form>
     )
 }

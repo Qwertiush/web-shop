@@ -4,7 +4,7 @@
 
   --ok: rgb(95, 179, 95);
   --warning: rgb(214, 110, 62);
-  --wrong: #e60023;
+  --wrong: #d11f3a;
 
   --white: #ccc;
 }
@@ -26,17 +26,17 @@
 }
 
 [data-theme='light'] {
-  --primary: #ffbdac;
-  --secondary: #ffd681;
+  --primary: #f3eceb;
+  --secondary: #4e47b6;
   --teritary: #f9f871;
   --quaternary: #ffbdac;
   --quinary: #ffd681;
   --senary: #f9f871;
 
-  --focus: var(--teritary);
+  --focus: var(--secondary);
   --inactive: #9b9595;
 
   --text: rgb(8, 35, 49);
 
-  --bg: #ffbdac;
+  --bg: #dfd7d6;
 }

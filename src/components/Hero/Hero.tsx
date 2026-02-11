@@ -2,7 +2,7 @@ import styles from './Hero.module.scss'
 import { SpecialItem } from '../../SpecialItem/SpecialItem';
 import { useEffect, useState } from 'react';
 import type { ProductModel } from '../../models/ProductModel';
-import { getHighlightedItems } from '../../data/dummyDB/dbAPI';
+import { fetchHighlightedItems } from '../../data/dummyDB/dbAPI';
 import { LoadingComponent } from '../LoadingComponent/LoadingComponent';
 import { useNavigate } from 'react-router';
 
@@ -18,8 +18,9 @@ export const Hero: React.FC<HeroProps> = ({}) =>{
 
   useEffect(()=>{
   
-    const getData = () => {
-      setPromoItems(getHighlightedItems());
+    const getData = async () => {
+      setLoading(true);
+      setPromoItems(await fetchHighlightedItems());
       setLoading(false);
     }
     getData();
