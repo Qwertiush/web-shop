@@ -3,7 +3,6 @@ import styles from './Navbar.module.scss'
 import { SearchBar } from '../SearchBar/SearchBar';
 import logoDark from '/src/assets/logo-dark.png'
 import logoLight from '/src/assets/logo-light.png'
-import { Button } from '../Button/Button';
 import { useLocation, useNavigate } from 'react-router';
 import { useCart } from '../../contexts/CartContext';
 import { useSearch } from '../../contexts/SearchContext';
@@ -25,8 +24,16 @@ export const Navbar: React.FC = () =>{
 
   const [isLoading,setiSLoading] = useState<boolean>(true);
 
+  const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
+
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuActive(!isMobileMenuActive);
+  };
+
   const handleSearch = (val: string) => {
     setSearchInput(val);
+
+    setIsMobileMenuActive(false);
 
     if (!location.pathname.startsWith(`/${val}`)) {
       navigate(`/${val}`);
@@ -58,6 +65,7 @@ export const Navbar: React.FC = () =>{
   },[])
 
   const handleCartPress = () => {
+    setIsMobileMenuActive(false);
     navigate('/cart');
   }
 
@@ -96,7 +104,10 @@ export const Navbar: React.FC = () =>{
                 </label>
             </div>
         </div>
-        <div className={styles.menuContainer}>
+        <div onClick={handleMobileMenuToggle} className={styles.mobileMenuButton}>
+          <a>|||</a>
+        </div>
+        <div className={!isMobileMenuActive ? styles.menuContainer : styles.menuContainerMobileView}>
             <SearchBar text='search' onClick={(val:string) => handleSearch(val)}/>
             {menu.map(item => {
                 return (
@@ -114,7 +125,7 @@ export const Navbar: React.FC = () =>{
                 );
             })}
             <div className={styles.cartContainer}>
-              <Button title={'Cart ' + (sumCartItems() || '')} onClick={handleCartPress}/>
+              <button className={styles.cartButton} onClick={handleCartPress}>{'Cart (' + (sumCartItems() || '0') + ')'}</button>
             </div>
         </div>
     </div>

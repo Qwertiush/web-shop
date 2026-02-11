@@ -72,9 +72,9 @@ export const Cart = () => {
   return (
     <div className={styles.parentContainer}>
         <div className={styles.cartHeader}>
-            <button className={styles.button} onClick={clear}>Clear the cart</button>
-            <div className={styles.text}>Total: {total} {preferences.currency}</div>
-            <button className={styles.button} onClick={handlePayment}>Pay Up!!!</button>
+            <button className={styles.button} onClick={clear}>Clear</button>
+            <div className={styles.text}>{total} {preferences.currency}</div>
+            <button className={styles.button} onClick={handlePayment}>Checkout</button>
         </div>
         <div className={styles.items}>
             {items.map((item) => {

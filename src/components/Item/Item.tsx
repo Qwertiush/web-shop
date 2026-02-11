@@ -13,7 +13,10 @@ export const Item: React.FC<ItemProps> = ({item, href}) =>{
   const {add} = useCart();
   const {pushToast} = useToast();
   
-  const handleAddingItem2Cart = () => {
+  const handleAddingItem2Cart = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     pushToast(`Item ${item.title} added to the cart`);
     add(item.id);
   }
@@ -36,7 +39,7 @@ export const Item: React.FC<ItemProps> = ({item, href}) =>{
             <div className={styles.priceContainer}>
                 <div className={item.oldPrice < 0 ? styles.newPrice : styles.oldPrice}>{item.oldPrice < 0 ? item.price + item.currency : item.oldPrice + item.currency}</div>
                 {item.oldPrice > 0 ? <div className={styles.newPrice}>{item.price + item.currency}</div> : ""}
-                <button className={styles.button} onClick={handleAddingItem2Cart}>add to cart</button>
+                <button className={styles.button} onClick={(e) => handleAddingItem2Cart(e)}>add to cart</button>
             </div>
         </Link>
     </div>

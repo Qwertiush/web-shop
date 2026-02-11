@@ -68,6 +68,16 @@
     width: 100%;
     background-color: var(--primary);
 }
+
+.menuContainerMobileView{
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--primary);
+  transition: all 0.3s ease;
+}
+
 .menuElement{
     flex: 1;
     display: flex;
@@ -85,7 +95,12 @@
     transition: all 0.5s ease;
 }
 
-.menuElement:hover{
+.cartButton{
+  @extend .menuElement;
+  padding: 1rem 1rem;
+}
+
+.menuElement:hover, .cartButton:hover{
     background-color: var(--secondary);
 }
 
@@ -94,7 +109,6 @@
   flex-direction: row;
 }
 
-/* Inspired with Uiverse.io by zl306 */ 
 .switch {
   position: relative;
   display: flex;
@@ -194,12 +208,35 @@
   margin-top: 1.5em;
 }
 
+.mobileMenuButton{
+  display: none;
+}
+
 
 @media screen and (max-width: 992px) {
   .centerContainer{
     display: none;
   }
-  .menuContainer{
+  .menuContainer {
     display: none;
+  }
+
+  .mobileMenuButton{
+    display: flex;
+    height: 30%;
+    min-height: 50px;
+    font-size: var(--fontXL);
+    color: var(--text);
+    justify-content: flex-end;
+    padding-right: 1rem;
+  }
+
+  .mobileMenuButton a:hover{
+    cursor: pointer;
+  }
+
+  .menuElement{
+    padding: 1rem 0;
+    border-bottom: 3px solid var(--secondary);
   }
 }

@@ -18,49 +18,68 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [filters, setFilters] = useState<Record<string, string[]>>({});
+
+  const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
+
   useEffect(()=>{
 
-      const fetchData = async () => {
-        setLoading(true);
+    const fetchData = async () => {
+      setLoading(true);
         
-        const products = await fetchAllProductsByTypeKey(searchPhrase);
-        setItems(products);
-        const type = await fetchProductTypeByKey(searchPhrase);
-        console.log(type);
+      const products = await fetchAllProductsByTypeKey(searchPhrase);
+      setItems(products);
+      const type = await fetchProductTypeByKey(searchPhrase);
+      console.log(type);
         
-        setItemParams(type);
+      setItemParams(type);
 
-        setLoading(false);
-      }
+      setLoading(false);
+    }
 
       fetchData();
 
   },[searchPhrase]);
 
+  const handleFilterChange = (
+    name: string,
+    value: string,
+    checked?: boolean
+  ) => {
+    setFilters(prev => {
+      const updated = { ...prev };
+
+      if (!updated[name]) updated[name] = [];
+
+      if (checked === undefined) {
+        updated[name] = value ? [value] : [];
+      } else {
+        if (checked) {
+          if (!updated[name].includes(value)) {
+            updated[name] = [...updated[name], value];
+          }
+        } else {
+          updated[name] = updated[name].filter(v => v !== value);
+        }
+      }
+
+      return updated;
+    });
+  };
+
+
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuActive(!isMobileMenuActive);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const result: Record<string, string[]> = {};
-
-    for (const [key, value] of formData.entries()) {
-      if (value === '') continue;
-      
-      if(!result[key]){
-        result[key] = [];
-      }
-      result[key].push(value.toString());
-    }
+    setIsMobileMenuActive(false);
 
     setLoading(true);
-
-    const response = await fetchFilteredItems(searchPhrase, result);
-    console.log(response);
-    
+    const response = await fetchFilteredItems(searchPhrase, filters);
     setItems(response);
-
-    setLoading(false);
-    
+    setLoading(false); 
   };
 
   if(loading){
@@ -69,11 +88,20 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
 
   return (
     <div className={styles.parentContainer}>
-        <form className={styles.leftPanel} onSubmit={handleSubmit}>
+        <div onClick={handleMobileMenuToggle} className={styles.leftPanelmobileMenuButton}>
+          <a>Filter parameters</a>
+        </div>
+        <form className={!isMobileMenuActive ? styles.leftPanel : styles.leftPanelMobileView} onSubmit={handleSubmit}>
             {itemParams?.parameters.map((item)=>{
               if(item.type == 'dropdown'){
                 return (
-                  <select key={item.id} className={styles.dropdownMenuElementContainer} name={item.id.toString()} defaultValue="">
+                  <select 
+                    key={item.id} 
+                    className={styles.dropdownMenuElementContainer} 
+                    name={item.id.toString()} 
+                    value={filters[item.id]?.[0] || ""}
+                    onChange={(e) => handleFilterChange(item.id.toString(), e.target.value)}
+                  >
                     <option className={styles.menuElement} value="">{item.name}</option>
                     {item.values?.map((v,index)=>{
                       return <option key={index} className={styles.dropdownMenuElement}>{v.value}</option>
@@ -82,7 +110,16 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
                 )
               }
               else if(item.type == 'input'){
-                return <input key={item.id} className={styles.inputMenuElement} placeholder={item.name} name={item.id.toString()} type='number'/>
+                return (
+                  <input 
+                    key={item.id} 
+                    className={styles.inputMenuElement} 
+                    placeholder={item.name} 
+                    name={item.id.toString()} 
+                    type='number'
+                    value={filters[item.id]?.[0] || ""}
+                    onChange={(e) => handleFilterChange(item.id.toString(), e.target.value)}
+                  />)
               }
               else{
                 return <div key={item.id} className={styles.checkBoxMenuParent}>
@@ -90,7 +127,12 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
                   {item.values?.map(v => (
                   <div key={v.id} className={styles.checkBoxMenuElement}>
                     {v.value}
-                    <CustomCheckBox onChange={() => {}} name={item.id.toString()} value={v.value} />
+                    <CustomCheckBox 
+                      name={item.id.toString()} 
+                      value={v.value}
+                      checked={filters[item.id]?.includes(v.value) || false}
+                      onChange={(checked) => handleFilterChange(item.id.toString(), v.value, checked)}
+                    />
                   </div>
                 ))}
                 </div>

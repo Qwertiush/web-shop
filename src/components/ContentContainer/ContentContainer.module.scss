@@ -14,6 +14,32 @@
     gap: 0.5rem;
 }
 
+.leftPanelMobileView{
+    flex: 4;
+    background-color: var(--primary);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.leftPanelmobileMenuButton{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1001;
+    background-color: var(--secondary);
+    border: 3px solid var(--secondary);
+    color: var(--text);
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.leftPanelmobileMenuButton:hover{
+    background-color: var(--primary);
+}
+
 .centerPanel{
     flex: 4;
     background-image: linear-gradient(to bottom, var(--primary), var(--secondary));
