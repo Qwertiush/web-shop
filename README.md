@@ -24,7 +24,7 @@ The project focuses on **client-side filtering, search, pagination, and state ma
 - TypeScript
 - React Router
 - SCSS
-- Custom REST API (backend for product data, search, filtering, and cart management)
+- Custom REST API (backend for product data, search, filtering)
 
 ---
 
