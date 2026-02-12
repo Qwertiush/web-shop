@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react'
 import type { ProductModel } from '../../models/ProductModel'
 import type { ProductType } from '../../models/ProductType'
 import { LoadingComponent } from '../LoadingComponent/LoadingComponent'
-import { fetchAllProductsByTypeKey, fetchFilteredItems, fetchProductTypeByKey } from '../../data/dummyDB/dbAPI'
+import { fetchFilteredItems, fetchProductTypeByKey } from '../../data/dummyDB/dbAPI'
+import type { FilteredItemsModel } from '../../models/FilteredItemsModel'
 
 interface ContentContainerProps{
   searchPhrase: string
@@ -22,13 +23,24 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
 
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
 
+  const pageLimit = 6;
+  const [page, setPage] = useState<number>(1);
+  const [pageCount, setPageCount] = useState<number>(1);
+  const pagesButtonsSideLimit = 1;
+
   useEffect(()=>{
 
     const fetchData = async () => {
       setLoading(true);
         
-      const products = await fetchAllProductsByTypeKey(searchPhrase);
-      setItems(products);
+      const products: FilteredItemsModel = await fetchFilteredItems(searchPhrase, {},1,pageLimit);
+      setItems(products.data);
+      setPageCount(products.lastPage);
+      setPage(1);
+      setFilters({});
+      console.log(products);
+      
+
       const type = await fetchProductTypeByKey(searchPhrase);
       console.log(type);
         
@@ -67,7 +79,6 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
     });
   };
 
-
   const handleMobileMenuToggle = () => {
     setIsMobileMenuActive(!isMobileMenuActive);
   };
@@ -77,14 +88,83 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
     setIsMobileMenuActive(false);
 
     setLoading(true);
-    const response = await fetchFilteredItems(searchPhrase, filters);
-    setItems(response);
+    const response: FilteredItemsModel = await fetchFilteredItems(searchPhrase, filters,1,pageLimit);
+    setItems(response.data);
+    setPage(1);
+    setPageCount(response.lastPage);
     setLoading(false); 
   };
+
+  const handlePageChange = async (newPage: number) => {
+    setLoading(true);
+
+    const response: FilteredItemsModel = await fetchFilteredItems(
+      searchPhrase,
+      filters,
+      newPage,
+      pageLimit
+    );
+
+    setItems(response.data);
+    setPage(response.page);
+    setPageCount(response.lastPage);
+
+    setLoading(false);
+  };
+
+  const handlePageChangeDecrement = () => {
+    if(page > 1){
+      handlePageChange(page - 1);
+    }
+  }
+
+  const handlePageChangeIncrement = () => {
+    if(page < pageCount){
+      handlePageChange(page + 1);
+    }
+  }
 
   if(loading){
     return <LoadingComponent text='loading...'/>
   }
+
+  const renderPageButtons = () => {
+    const buttons = [];
+    const sideLimit = pagesButtonsSideLimit;
+    const total = pageCount;
+
+    let leftSeparatorAdded = false;
+    let rightSeparatorAdded = false;
+
+    for (let i = 1; i <= total; i++) {
+      if (i === 1 || i === total || (i >= page - sideLimit && i <= page + sideLimit)) {
+        buttons.push(
+          <button
+            key={i}
+            className={i === page ? styles.pageButtonActive : styles.pageButton}
+            disabled={i === page}
+            onClick={() => handlePageChange(i)}
+          >
+            {i}
+          </button>
+        );
+      } else if (i < page - sideLimit && !leftSeparatorAdded) {
+        buttons.push(
+          <div key="sep-left" className={styles.pagesSeparator}>...</div>
+        );
+        leftSeparatorAdded = true;
+      } else if (i > page + sideLimit && !rightSeparatorAdded) {
+        buttons.push(
+          <div key="sep-right" className={styles.pagesSeparator}>...</div>
+        );
+        rightSeparatorAdded = true;
+      }
+    }
+
+  return buttons;
+};
+
+
 
   return (
     <div className={styles.parentContainer}>
@@ -148,6 +228,11 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
                     <Item key={item.id} item={item} href={`/product/${item.id}`}/>
                   );
               })}
+          </div>
+          <div className={styles.pageButtonsContainer}>
+            <button className={styles.pageButton} onClick={handlePageChangeDecrement}>{'<'}</button>
+            {renderPageButtons()}
+            <button className={styles.pageButton} onClick={handlePageChangeIncrement}>{'>'}</button>
           </div>
         </div>
         <div className={styles.rightPanel}></div>

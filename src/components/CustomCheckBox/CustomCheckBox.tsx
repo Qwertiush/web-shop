@@ -1,7 +1,7 @@
 import styles from './CustomCheckBox.module.scss'
 
 interface CustomCheckBoxProps{
-   onChange: (checked: boolean) => void
+  onChange: (checked: boolean) => void
   name: string
   value: string
   checked: boolean
