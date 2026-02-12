@@ -1,55 +1,107 @@
-import type { ProductModel } from "../../models/ProductModel";
-import type { ProductType } from "../../models/ProductType";
+import { defaultProduct, type ProductModel } from "../../models/ProductModel";
+import { defaultProductType, type ProductType } from "../../models/ProductType";
 import type { MenuElementModel } from "../../models/MenuElementModel";
 import type { FilteredItemsModel } from "../../models/FilteredItemsModel";
 
+const timeoutLimit = 5000;
+
 export async function checkConnection2API(): Promise<boolean> {
-    const response = await fetch(`http://localhost:3000/`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutLimit);
 
-    if(!response)
+    try {
+        const response = await fetch(`http://localhost:3000/`,{
+          signal: controller.signal
+        });
+        return response.ok;
+    } catch (err) {
         return false;
-
-    return response.ok;
+    } finally{
+      clearTimeout(timeout);
+    }
 }
 
 export async function fetchAllProducts(): Promise<ProductModel[]>{
-    const response = await fetch(`http://localhost:3000/products/`);
+    try{
+      const response = await fetch(`http://localhost:3000/products/`);
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
+      if (!response.ok) {
+        console.error('Fetch error:', response.status, response.statusText);
+        return [];
+      }
+
+      const data = await response.json() as ProductModel[];
+      return data;
+    } catch(err){
+      console.error('Network error:', err);
+      return [];
     }
-
-    return await response.json() as ProductModel[];
 }
 
 export async function fetchAllProductsByTypeId(id: string): Promise<ProductModel[]>{
-    const response = await fetch(`http://localhost:3000/products/types/${id}`);
+    try{
+      const response = await fetch(`http://localhost:3000/products/types/${id}`);
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
+      if (!response.ok) {
+        console.error('Fetch error:', response.status, response.statusText);
+        return [];
+      }
+
+      const data = await response.json() as ProductModel[];
+      return data;
+    } catch(err){
+      console.error('Network error:', err);
+      return [];
     }
-
-    return await response.json() as ProductModel[];
 }
 
 export async function fetchAllProductsByTypeKey(key: string): Promise<ProductModel[]>{
-    const response = await fetch(`http://localhost:3000/products/types/key/${key}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutLimit);
+
+  try{
+    const response = await fetch(`http://localhost:3000/products/types/key/${key}`,{
+      signal: controller.signal
+    });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      console.error('Fetch error:', response.status, response.statusText);
+      return [];
     }
 
-    return await response.json() as ProductModel[];
+    const data = await response.json() as ProductModel[];
+    return data;
+
+  } catch(err){
+    console.error('Network error:', err);
+    return [];
+  } finally{
+    clearTimeout(timeout);
+  }
 }
 
 export async function fetchMenu(): Promise<MenuElementModel[]> {
-    const response = await fetch(`http://localhost:3000/menu/`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutLimit);
+
+  try{
+    const response = await fetch(`http://localhost:3000/menu/`,{
+      signal: controller.signal
+    });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      console.error('Fetch error:', response.status, response.statusText);
+      return [];
     }
 
-    return await response.json() as MenuElementModel[];
+    const data = await response.json() as MenuElementModel[];
+    return data;
+  } catch(err){
+    console.error('Network error:', err);
+    return [];
+  } finally{
+    clearTimeout(timeout);
+  }
 }
 
 export async function fetchFilteredItems(productType: string, params: Record<string,string[]>, page?: number, limit?: number): Promise<FilteredItemsModel> {
@@ -65,41 +117,90 @@ export async function fetchFilteredItems(productType: string, params: Record<str
         values.forEach(v => searchParams.append(key,v));
     })
 
-    const response = await fetch(`http://localhost:3000/products/findwithparams?${searchParams.toString()}`)
-    
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+    try {
+        const response = await fetch(`http://localhost:3000/products/findwithparams?${searchParams.toString()}`);
+        
+        if (!response.ok) {
+            console.error('Fetch error:', response.statusText);
+            return { data: [], page: 1, lastPage: 1, total: 0};
+        }
 
-    return await response.json() as FilteredItemsModel;
+        const data = await response.json() as FilteredItemsModel;
+        return data;
+    } catch (err) {
+        console.error('Network error:', err);
+        return { data: [], page: 1, lastPage: 1, total: 0};
+    }
 }
 
 export async function fetchItemById(id: number): Promise<ProductModel> {
-    const response = await fetch(`http://localhost:3000/products/${id}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutLimit);
+
+  try{
+    const response = await fetch(`http://localhost:3000/products/${id}`,{
+      signal: controller.signal
+    });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      console.error('Fetch error:', response.status, response.statusText);
+      return defaultProduct;
     }
 
-    return await response.json() as ProductModel;
+    const data = await response.json() as ProductModel;
+    return data;
+  } catch(err){
+    console.error('Network error:', err);
+    return defaultProduct;
+  } finally{
+    clearTimeout(timeout);
+  }
 }
 
 export async function fetchProductTypeByKey(key: string): Promise<ProductType> {
-    const response = await fetch(`http://localhost:3000/products/types/${key}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutLimit);
+
+  try{
+    const response = await fetch(`http://localhost:3000/products/types/${key}`,{
+      signal: controller.signal
+    });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      console.error('Fetch error:', response.status, response.statusText);
+      return defaultProductType;
     }
 
-    return await response.json() as ProductType;
+    const data = await response.json() as ProductType;
+    return data;
+  }catch(err){
+    console.error('Network error:', err);
+    return defaultProductType;
+  } finally{
+    clearTimeout(timeout);
+  }
 }
 
 export async function fetchHighlightedItems(): Promise<ProductModel[]>{
-    const response = await fetch(`http://localhost:3000/products/high`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutLimit);
+
+  try{
+    const response = await fetch(`http://localhost:3000/products/high`,{
+      signal: controller.signal
+    });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      console.error('Fetch error:', response.status, response.statusText);
+      return [];
     }
 
-    return await response.json() as ProductModel[];
+    const data = await response.json() as ProductModel[];
+    return data;
+  }catch(err){
+    console.error('Network error:', err);
+    return [];
+  } finally{
+    clearTimeout(timeout);
+  }
 }

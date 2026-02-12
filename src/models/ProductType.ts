@@ -16,3 +16,10 @@ export interface ProductParameterValues{
   id: number;
   value: string;
 }
+
+export const defaultProductType: ProductType = {
+  title: 'undefined type',
+  key: 'undefied',
+  id: -1,
+  parameters: []
+}

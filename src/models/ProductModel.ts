@@ -17,3 +17,15 @@ export interface ProductModel {
   id: string;
   productType: ProductType
 }
+
+export const defaultProduct: ProductModel = {
+  id: '0',
+  title: 'Unknown product',
+  description: '',
+  price: 0,
+  oldPrice: 0,
+  currency: 'NaN',
+  image: '404',
+  productType: {title: "undefined", parameters: []},
+  specifications: [],
+};
