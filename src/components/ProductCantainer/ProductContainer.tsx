@@ -51,6 +51,7 @@ export const ProductContainer: React.FC<ProductContainerProps> = ({item}) => {
             )}
 
             <button
+              data-testid ='add-to-cart'
               className={styles.addToCartButton}
               onClick={handleAddingToCart}
             >

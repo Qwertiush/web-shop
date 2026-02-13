@@ -73,7 +73,13 @@ export const Cart = () => {
     <div className={styles.parentContainer}>
         <div className={styles.cartHeader}>
             <button className={styles.button} onClick={clear}>Clear</button>
+            {
+            items.length === 0
+            ?
+            <div className={styles.text}>Your cart is empty</div>
+            :
             <div className={styles.text}>{total} {preferences.currency}</div>
+            }
             <button className={styles.button} onClick={handlePayment}>Checkout</button>
         </div>
         <div className={styles.items}>

@@ -31,11 +31,11 @@ export const CartItem: React.FC<CartItemProps> = ({item}) =>{
                 <div className={item.item.oldPrice < 0 ? styles.newPrice : styles.oldPrice}>{item.item.oldPrice < 0 ? item.item.price + item.item.currency : item.item.oldPrice + item.item.currency}</div>
                 {item.item.oldPrice > 0 ? <div className={styles.newPrice}>{item.item.price + item.item.currency}</div> : ""}
             </div>
-            <div className={styles.title} >{item.quantity}</div>
+            <div data-testid ="cart-product-quantity" className={styles.title} >{item.quantity}</div>
             <div className={styles.buttons}>
-                <button className={styles.buttonQty} onClick={()=>handleChangingQuantity(1)}>+</button>
-                <button className={styles.buttonQty} onClick={()=>handleChangingQuantity(-1)}>-</button>
-                <button className={styles.buttonRemove} onClick={handleRamovingItem}>X</button>
+                <button data-testid ="cart-increment-product" className={styles.buttonQty} onClick={()=>handleChangingQuantity(1)}>+</button>
+                <button data-testid ="cart-decrement-product" className={styles.buttonQty} onClick={()=>handleChangingQuantity(-1)}>-</button>
+                <button data-testid ="cart-remove-product" className={styles.buttonRemove} onClick={handleRamovingItem}>X</button>
             </div>
         </div>
     </div>

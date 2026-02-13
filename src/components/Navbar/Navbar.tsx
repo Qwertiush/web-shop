@@ -86,10 +86,12 @@ export const Navbar: React.FC = () =>{
   }
 
   return (
-    <div className={hidden ? styles.parentContainerHiddenState : styles.parentContainer}>
+    <div 
+      data-testid ="nav-container"
+      className={hidden ? styles.parentContainerHiddenState : styles.parentContainer}>
         <div className={styles.rowContainer}>
             <div className={styles.logoContainer}>
-              <img onClick={handleLogoPress} className={styles.logo} src={preferences.theme==='dark' ? logoDark : logoLight} alt="Logo" />
+              <img data-testid ="nav-logo" onClick={handleLogoPress} className={styles.logo} src={preferences.theme==='dark' ? logoDark : logoLight} alt="Logo" />
             </div>
             <div className={styles.centerContainer}>
               <div className={styles.terminalLoader}>
@@ -99,7 +101,7 @@ export const Navbar: React.FC = () =>{
             <div className={styles.rightContainer}>
             {/*  <Button title={'Clear prefs} onClick={clearPrefferences}/> Dev button*/}
                 <label className={styles.switch}>
-                  <input className={styles.toggle} type="checkbox" checked={preferences.theme === 'dark'} onChange={handleTheme} />
+                  <input data-testid ="theme-checkbox" className={styles.toggle} type="checkbox" checked={preferences.theme === 'dark'} onChange={handleTheme} />
                   <span className={styles.slider}></span>
                 </label>
             </div>
@@ -111,21 +113,35 @@ export const Navbar: React.FC = () =>{
             <SearchBar text='search' onClick={(val:string) => handleSearch(val)}/>
             {menu.map(item => {
                 return (
-                  <select key={item.title} className={styles.menuElement} onChange={(e) => handleSearch(e.target.value)} value="">
+                  <select 
+                    data-testid={`nav-select-${item.title}`}
+                    key={item.title} 
+                    className={styles.menuElement} 
+                    onChange={(e) => handleSearch(e.target.value)} 
+                    value=""
+                  >
                     <option className={styles.menuElement} value="" disabled>{item.title}</option>
                     {item.dropdownElements.map(i=>{
                       if(i.id === 1){
                         return;
                       }
                       else
-                        return <option className={styles.menuElement} key={i.id} value={i.key}>{i.title}</option>
+                        return <option 
+                                  className={styles.menuElement} 
+                                  key={i.id} 
+                                  value={i.key}>{i.title}
+                                </option>
                     })
                     }
                   </select>
                 );
             })}
             <div className={styles.cartContainer}>
-              <button className={styles.cartButton} onClick={handleCartPress}>{'Cart (' + (sumCartItems() || '0') + ')'}</button>
+              <button
+                data-testid ="cart-button"
+                className={styles.cartButton} 
+                onClick={handleCartPress}>{'Cart (' + (sumCartItems() || '0') + ')'}
+              </button>
             </div>
         </div>
     </div>

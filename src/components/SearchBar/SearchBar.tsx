@@ -12,6 +12,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({text, onClick}) =>{
   return (
       <form className={styles.inputContainer} onSubmit={e => { e.preventDefault(); onClick(value); }}>
         <input 
+          data-testid ="nav-search-bar"
           className={styles.input} 
           placeholder={text}
           value={value}

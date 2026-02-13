@@ -23,7 +23,7 @@ export const Item: React.FC<ItemProps> = ({item, href}) =>{
 
 
   return (
-    <div className={styles.card}>
+    <div data-testid ="product-card" className={styles.card}>
         <Link className={styles.productData} to={href}>
             <div className={styles.imageContainer}>
                 <img className={styles.image} src={item.image} alt="404"/>
@@ -39,7 +39,12 @@ export const Item: React.FC<ItemProps> = ({item, href}) =>{
             <div className={styles.priceContainer}>
                 <div className={item.oldPrice < 0 ? styles.newPrice : styles.oldPrice}>{item.oldPrice < 0 ? item.price + item.currency : item.oldPrice + item.currency}</div>
                 {item.oldPrice > 0 ? <div className={styles.newPrice}>{item.price + item.currency}</div> : ""}
-                <button className={styles.button} onClick={(e) => handleAddingItem2Cart(e)}>add to cart</button>
+                <button 
+                  data-testid ='add-to-cart-item'
+                  className={styles.button} 
+                  onClick={(e) => handleAddingItem2Cart(e)}>
+                add to cart
+                </button>
             </div>
         </Link>
     </div>
