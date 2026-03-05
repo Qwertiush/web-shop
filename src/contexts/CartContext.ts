@@ -3,9 +3,9 @@ import type { CartState } from "../models/cartModel";
 
 interface CartContextValue {
   cart: CartState;
-  add: (id: string) => void;
-  remove: (id: string) => void;
-  setQty: (id: string, qty: number) => void;
+  add: (id: number) => void;
+  remove: (id: number) => void;
+  setQty: (id: number, qty: number) => void;
   clear: () => void;
 }
 

@@ -16,14 +16,14 @@ export const CartProvider = ({ children }: Props) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const add = (id: string) => {
+  const add = (id: number) => {
     setCart(prev => ({
       ...prev,
       [id]: (prev[id] || 0) + 1,
     }));
   };
 
-  const remove = (id: string) => {
+  const remove = (id: number) => {
     setCart(prev => {
       const copy = { ...prev };
       delete copy[id];
@@ -31,7 +31,7 @@ export const CartProvider = ({ children }: Props) => {
     });
   };
 
-  const setQty = (id: string, qty: number) => {
+  const setQty = (id: number, qty: number) => {
     if (qty <= 0) return remove(id);
     setCart(prev => ({ ...prev, [id]: qty }));
   };

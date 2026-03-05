@@ -14,12 +14,12 @@ export interface ProductModel {
   description: string;
   specifications: SpecificationModel[];
   image: string;
-  id: string;
+  id: number;
   productType: ProductType
 }
 
 export const defaultProduct: ProductModel = {
-  id: '0',
+  id: 0,
   title: 'Unknown product',
   description: '',
   price: 0,
