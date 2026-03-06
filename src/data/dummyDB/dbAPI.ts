@@ -4,13 +4,14 @@ import type { MenuElementModel } from "../../models/MenuElementModel";
 import type { FilteredItemsModel } from "../../models/FilteredItemsModel";
 
 const timeoutLimit = 5000;
+const apiURL = import.meta.env.VITE_API_URL;
 
 export async function checkConnection2API(): Promise<boolean> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutLimit);
 
     try {
-        const response = await fetch(`http://localhost:3000/`,{
+        const response = await fetch(apiURL,{
           signal: controller.signal
         });
         return response.ok;
@@ -23,7 +24,7 @@ export async function checkConnection2API(): Promise<boolean> {
 
 export async function fetchAllProducts(): Promise<ProductModel[]>{
     try{
-      const response = await fetch(`http://localhost:3000/products/`);
+      const response = await fetch(`${apiURL}/products/`);
 
       if (!response.ok) {
         console.error('Fetch error:', response.status, response.statusText);
@@ -40,7 +41,7 @@ export async function fetchAllProducts(): Promise<ProductModel[]>{
 
 export async function fetchAllProductsByTypeId(id: string): Promise<ProductModel[]>{
     try{
-      const response = await fetch(`http://localhost:3000/products/types/${id}`);
+      const response = await fetch(`${apiURL}/products/types/${id}`);
 
       if (!response.ok) {
         console.error('Fetch error:', response.status, response.statusText);
@@ -60,7 +61,7 @@ export async function fetchAllProductsByTypeKey(key: string): Promise<ProductMod
   const timeout = setTimeout(() => controller.abort(), timeoutLimit);
 
   try{
-    const response = await fetch(`http://localhost:3000/products/types/key/${key}`,{
+    const response = await fetch(`${apiURL}/products/types/key/${key}`,{
       signal: controller.signal
     });
 
@@ -85,7 +86,7 @@ export async function fetchMenu(): Promise<MenuElementModel[]> {
   const timeout = setTimeout(() => controller.abort(), timeoutLimit);
 
   try{
-    const response = await fetch(`http://localhost:3000/menu/`,{
+    const response = await fetch(`${apiURL}/menu/`,{
       signal: controller.signal
     });
 
@@ -97,6 +98,7 @@ export async function fetchMenu(): Promise<MenuElementModel[]> {
     const data = await response.json() as MenuElementModel[];
     return data;
   } catch(err){
+    console.warn('api:', apiURL);
     console.error('Network error:', err);
     return [];
   } finally{
@@ -118,7 +120,7 @@ export async function fetchFilteredItems(productType: string, params: Record<str
     })
 
     try {
-        const response = await fetch(`http://localhost:3000/products/findwithparams?${searchParams.toString()}`);
+        const response = await fetch(`${apiURL}/products/findwithparams?${searchParams.toString()}`);
         
         if (!response.ok) {
             console.error('Fetch error:', response.statusText);
@@ -138,7 +140,7 @@ export async function fetchItemById(id: number): Promise<ProductModel> {
   const timeout = setTimeout(() => controller.abort(), timeoutLimit);
 
   try{
-    const response = await fetch(`http://localhost:3000/products/${id}`,{
+    const response = await fetch(`${apiURL}/products/${id}`,{
       signal: controller.signal
     });
 
@@ -162,7 +164,7 @@ export async function fetchProductTypeByKey(key: string): Promise<ProductType> {
   const timeout = setTimeout(() => controller.abort(), timeoutLimit);
 
   try{
-    const response = await fetch(`http://localhost:3000/products/types/${key}`,{
+    const response = await fetch(`${apiURL}/products/types/${key}`,{
       signal: controller.signal
     });
 
@@ -186,7 +188,7 @@ export async function fetchHighlightedItems(): Promise<ProductModel[]>{
   const timeout = setTimeout(() => controller.abort(), timeoutLimit);
 
   try{
-    const response = await fetch(`http://localhost:3000/products/high`,{
+    const response = await fetch(`${apiURL}/products/high`,{
       signal: controller.signal
     });
 
