@@ -15,7 +15,6 @@ export const ProductPage: React.FC = () => {
     const getItem = async () => {
       if(id){
         const item = await fetchItemById(+id);
-        console.log(item);
         setProduct(item);
       }
     }

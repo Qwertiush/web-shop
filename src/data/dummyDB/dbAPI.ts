@@ -107,8 +107,6 @@ export async function fetchMenu(): Promise<MenuElementModel[]> {
 }
 
 export async function fetchFilteredItems(productType: string, params: Record<string,string[]>, page?: number, limit?: number): Promise<FilteredItemsModel> {
-    console.log("Ffetching with parameter id's: ",productType,", ", params);
-
     const searchParams = new URLSearchParams({
         type: productType,
         page: String(page ?? 1),

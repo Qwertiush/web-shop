@@ -61,8 +61,6 @@ export const Cart = () => {
         pushToast("Cart is empty, In those parts of the world this is considered an invalid transaction. :(", 8000);
         return;
     }
-
-    console.log("Chill, Chill, Chill, Big Smoke, It's me...");
     pushToast("Sorry, those items are unavalible for purchase. :(");
   }
 

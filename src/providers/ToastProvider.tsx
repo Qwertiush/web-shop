@@ -22,10 +22,8 @@ export const ToastProvider = ({ children }: Props) => {
 
     const newToastId = createNewId();
     const newToast: ToastModel = {id: newToastId, message: msg, onClose: () => onClose(newToastId), duration: duration ?? toastLifeTime}
-    console.log('Creating new toast: ' + newToast.id);
 
     setToasts(prev => [...prev, newToast]);
-    console.log(toasts);
   }
 
   const onClose = (id: string) => {

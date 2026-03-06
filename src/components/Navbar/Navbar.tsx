@@ -45,7 +45,6 @@ export const Navbar: React.FC = () =>{
       setiSLoading(true);
       const response = await fetchMenu();
       setMenu(response);
-      console.log("Menu: ", response);
       setiSLoading(false);
     }
 

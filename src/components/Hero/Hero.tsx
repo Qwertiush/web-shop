@@ -28,8 +28,6 @@ export const Hero: React.FC<HeroProps> = ({}) =>{
   },[])
 
   const handleProductPress = (item: ProductModel) => {
-    console.log(item.title + " pressed");
-
     navigate(`/product/${item.id}`);
   }
 
