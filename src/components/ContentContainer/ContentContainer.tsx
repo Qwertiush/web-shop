@@ -38,11 +38,8 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({searchPhrase}
       setPageCount(products.lastPage);
       setPage(1);
       setFilters({});
-      console.log(products);
       
-
       const type = await fetchProductTypeByKey(searchPhrase);
-      console.log(type);
         
       setItemParams(type);
 
