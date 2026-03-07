@@ -1,6 +1,9 @@
 name: Cypress
 
-on: pull_request
+on:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
   cypress-run:
@@ -13,3 +16,4 @@ jobs:
         with:
           build: npm run build
           start: npm run preview
+          wait-on: 'http://localhost:4173'
