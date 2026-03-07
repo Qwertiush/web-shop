@@ -16,4 +16,6 @@ jobs:
         with:
           build: npm run build
           start: npm run preview
-          wait-on: 'http://localhost:5173'
+          wait-on: 'http://localhost:4173'
+        env:
+          CYPRESS_baseUrl: http://localhost:4173
