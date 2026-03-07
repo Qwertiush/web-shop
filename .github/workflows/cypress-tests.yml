@@ -12,10 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: curl -I http://localhost:4173
+
       - uses: cypress-io/github-action@v6
         with:
           build: npm run build
           start: npm run preview
           wait-on: 'http://localhost:4173'
+          wait-on-timeout: 120
         env:
           CYPRESS_baseUrl: http://localhost:4173
