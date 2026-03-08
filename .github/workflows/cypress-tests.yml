@@ -21,6 +21,8 @@ jobs:
           curl -I $VITE_API_URL
 
       - name: Check API connectivity
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: curl -I $VITE_API_URL
 
       - uses: cypress-io/github-action@v6
