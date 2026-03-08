@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   cypress-run:
@@ -13,12 +14,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instal dependencies
+        run: npm ci
+
       - name: Check API connectivity
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: curl -I $VITE_API_URL
 
-      - uses: cypress-io/github-action@v6
+      - name: Build project
+        uses: cypress-io/github-action@v6
         with:
           build: npm run build
           start: npm run preview
@@ -27,3 +40,15 @@ jobs:
         env:
           CYPRESS_baseUrl: http://localhost:4173
           VITE_API_URL: ${{ vars.VITE_API_URL }}
+
+      - name: Upload Cypress screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Cypress videos
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/wideos
