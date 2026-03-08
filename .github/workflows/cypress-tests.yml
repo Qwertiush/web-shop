@@ -31,3 +31,4 @@ jobs:
           wait-on-timeout: 120
         env:
           CYPRESS_baseUrl: http://localhost:4173
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
