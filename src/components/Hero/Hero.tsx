@@ -32,7 +32,7 @@ export const Hero: React.FC<HeroProps> = ({}) =>{
   }
 
   if(loading)
-    return <LoadingComponent text='loading...'/>
+    return <LoadingComponent text='loading hero...'/>
     
   return (
     <div className={styles.parentContainer}>

@@ -8,9 +8,9 @@
 
 /* Inspired by Uiverse.io by arthur_6104 */ 
 .loader .box {
-  background-color: rgb(84, 84, 84);
-  width: 220px;
-  height: 220px;
+  background-color: -var(--secondary);
+  width: 70vh;
+  height: 300px;
   padding: 20px;
   border-radius: 20px;
   border: 5px solid gray;

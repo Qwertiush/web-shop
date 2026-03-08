@@ -1,24 +1,36 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ContentContainer } from "../components/ContentContainer/ContentContainer"
 import { Hero } from "../components/Hero/Hero";
 import { useSearch } from "../contexts/SearchContext";
-import { checkConnection2API} from "../data/dummyDB/dbAPI";
+import { waitForAPI} from "../data/dummyDB/dbAPI";
+import { LoadingComponent } from "../components/LoadingComponent/LoadingComponent";
 
 export const MainPage: React.FC = () => {
   const { searchInput } = useSearch();
 
+  const [apiReady, setApiReady] = useState<boolean | null>(null);
+
   useEffect(()=>{
 
     const checkAPI = async () => {
-      const response = await checkConnection2API();
-
-      console.log("Connection to API: ",response);
+      const response = await waitForAPI();
+      setApiReady(response);
     }
 
     checkAPI();
     
   },[]);
+
+  if(apiReady === null){
+    return (
+      <LoadingComponent text="This site is using free tier hosting service for backend API, please wait for API to wake up ⏰. (It might take about 60 seconds)."/>
+    )
+  }
+
+  if (!apiReady) {
+    return <div>API failed to start.</div>;
+  }
 
   return (
     <>

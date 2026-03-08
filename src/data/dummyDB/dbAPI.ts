@@ -3,7 +3,7 @@ import { defaultProductType, type ProductType } from "../../models/ProductType";
 import type { MenuElementModel } from "../../models/MenuElementModel";
 import type { FilteredItemsModel } from "../../models/FilteredItemsModel";
 
-const timeoutLimit = 5000;
+const timeoutLimit = 70000;
 const apiURL = import.meta.env.VITE_API_URL;
 
 export async function checkConnection2API(): Promise<boolean> {
@@ -20,6 +20,30 @@ export async function checkConnection2API(): Promise<boolean> {
     } finally{
       clearTimeout(timeout);
     }
+}
+
+export async function waitForAPI(
+    timeout = 70000,
+    interval = 3000
+  ): Promise<boolean> {
+
+    const start = Date.now();
+
+    while (Date.now() - start < timeout) {
+      try {
+        const response = await fetch(apiURL);
+
+        if (response.ok) {
+          return true;
+        }
+      } catch (err) {
+        // ignore network errors
+      }
+
+      await new Promise(r => setTimeout(r, interval));
+    }
+
+  return false;
 }
 
 export async function fetchAllProducts(): Promise<ProductModel[]>{

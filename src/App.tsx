@@ -7,7 +7,6 @@ import { Footer } from './components/Footer/Footer'
 import { Navbar } from './components/Navbar/Navbar'
 import { SearchContext } from './contexts/SearchContext'
 import { useState } from 'react'
-import { Hero } from './components/Hero/Hero'
 
 function App() {
   const [searchInput, setSearchInput] = useState('');
@@ -17,7 +16,7 @@ function App() {
       <SearchContext.Provider value={{ searchInput, setSearchInput }}>
         <Navbar/>
         <Routes>
-          <Route path="/" element={<Hero />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/:search" element={<MainPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
