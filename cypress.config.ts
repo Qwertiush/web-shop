@@ -7,8 +7,8 @@ export default defineConfig({
     baseUrl: "http://localhost:5173",
     defaultCommandTimeout: 100000,
     pageLoadTimeout: 180000,
-    setupNodeEvents(on, config) {
+    /*setupNodeEvents(on, config) {
       // implement node event listeners here
-    },
+    },*/
   },
 });
