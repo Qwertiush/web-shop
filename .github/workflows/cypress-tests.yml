@@ -13,6 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Show VITE_API_URL
+        run: echo "VITE_API_URL is $VITE_API_URL"
+
       - name: Check API connectivity
         run: curl -I $VITE_API_URL
 
