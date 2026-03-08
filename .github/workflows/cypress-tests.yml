@@ -30,7 +30,7 @@ jobs:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: curl -I $VITE_API_URL
 
-      - name: Build project
+      - name: Build and test project
         uses: cypress-io/github-action@v6
         with:
           build: npm run build
@@ -46,9 +46,11 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+          if-no-files-found: ignore
 
       - name: Upload Cypress videos
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/wideos
+          if-no-files-found: ignore
