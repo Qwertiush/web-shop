@@ -7,9 +7,9 @@ import type { ProductType, ProductTypeParameter } from '../../../models/ProductT
 import userEvent from '@testing-library/user-event'
 
 // mock contexs
-const removeMock = vi.fn()
-const setQtyMock = vi.fn()
-const pushToastMock = vi.fn()
+const removeMock = vi.fn();
+const setQtyMock = vi.fn();
+const pushToastMock = vi.fn();
 
 vi.mock('../../../contexts/CartContext', () => ({
   useCart: () => ({
