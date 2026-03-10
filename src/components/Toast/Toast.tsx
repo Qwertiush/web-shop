@@ -30,7 +30,7 @@ export const Toast: React.FC<ToastProps> = ({ message, onClose, duration = 4000 
   return (
     <div className={`${styles.toast} ${styles[state]}`}>
       <span className={styles.toastMessage}>{message}</span>
-      <button className={styles.toastClose} onClick={handleClose}>
+      <button aria-label="close toast" className={styles.toastClose} onClick={handleClose}>
         ✕
       </button>
     </div>

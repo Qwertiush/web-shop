@@ -78,7 +78,7 @@ export const Cart = () => {
             :
             <div className={styles.text}>{total} {preferences.currency}</div>
             }
-            <button className={styles.button} onClick={handlePayment}>Checkout</button>
+            <button aria-label='checkout button' className={styles.button} onClick={handlePayment}>Checkout</button>
         </div>
         <div className={styles.items}>
             {items.map((item) => {

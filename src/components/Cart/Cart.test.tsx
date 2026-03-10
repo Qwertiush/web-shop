@@ -32,8 +32,8 @@ vi.mock('../../contexts/ToastContext', () => ({
 }))
 
 vi.mock('../../data/dummyDB/dbAPI', () => ({
-  fetchItemById: vi.fn().mockResolvedValue({
-    id: 1,
+  fetchItemById: vi.fn().mockImplementation( async (id: number) => ({
+    id,
     title: "Test product",
     price: 10,
     currency: "USD",
@@ -42,7 +42,7 @@ vi.mock('../../data/dummyDB/dbAPI', () => ({
     oldPrice: -1,
     specifications: [],
     productType: { id: 1, title: "test title", key: "test key", parameters: [] }
-  })
+  }))
 }))
 
 const cartStateMock: CartState = {
@@ -74,7 +74,7 @@ describe('Cart', () =>{
         
         render(<Cart/>)
 
-        await screen.findByText(/Checkout/i)
+        await screen.findByRole('button', {name: /checkout button/i})
         
         expect(screen.queryByText(/your cart is empty/i)).not.toBeInTheDocument()
     })
