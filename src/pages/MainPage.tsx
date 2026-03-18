@@ -24,7 +24,9 @@ export const MainPage: React.FC = () => {
 
   if(apiReady === null){
     return (
+      <div style={{height:"100vh"}}>
       <LoadingComponent text="This site is using free tier hosting service for backend API, please wait for API to wake up ⏰. (It might take about 60 seconds)."/>
+      </div>
     )
   }
 

@@ -105,29 +105,31 @@ export async function fetchAllProductsByTypeKey(key: string): Promise<ProductMod
   }
 }
 
-export async function fetchMenu(): Promise<MenuElementModel[]> {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutLimit);
+export async function fetchMenu(
+  timeout = 70000,
+  interval = 3000
+): Promise<MenuElementModel[]> {
 
-  try{
-    const response = await fetch(`${apiURL}/menu/`,{
-      signal: controller.signal
-    });
+  const start = Date.now();
 
-    if (!response.ok) {
-      console.error('Fetch error:', response.status, response.statusText);
-      return [];
+  while(Date.now() - start < timeout){
+    try{
+      const response = await fetch(`${apiURL}/menu/`);
+
+      if (!response.ok) {
+        console.error('Fetch error:', response.status, response.statusText);
+        return [];
+      }
+
+      const data = await response.json() as MenuElementModel[];
+      return data;
+
+    } catch(err){
+      console.error('Network error:', err);
     }
-
-    const data = await response.json() as MenuElementModel[];
-    return data;
-  } catch(err){
-    console.warn('api:', apiURL);
-    console.error('Network error:', err);
-    return [];
-  } finally{
-    clearTimeout(timeout);
+    await new Promise(r => setTimeout(r, interval));
   }
+  return [];
 }
 
 export async function fetchFilteredItems(productType: string, params: Record<string,string[]>, page?: number, limit?: number): Promise<FilteredItemsModel> {

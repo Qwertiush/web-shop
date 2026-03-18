@@ -24,7 +24,7 @@ export const CartItem: React.FC<CartItemProps> = ({item}) =>{
     <div className={styles.card}>
         <div className={styles.productData}>
             <div className={styles.imageContainer}>
-                <img className={styles.image} src={item.item.image} alt="404"/>
+                <img aria-label="product image" className={styles.image} src={item.item.image} alt="404"/>
             </div>
             <div className={styles.title}>{item.item.title}</div>
             <div className={styles.priceContainer}>

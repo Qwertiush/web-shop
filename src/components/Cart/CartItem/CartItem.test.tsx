@@ -67,33 +67,36 @@ describe('CartItem', () => {
   it('renders product title and quantity', () => {
     render(<CartItem item={itemMock} />)
 
-    expect(screen.getByText('test product')).toBeInTheDocument()
-    expect(screen.getByTestId('cart-product-quantity')).toHaveTextContent('2')
+    expect(screen.getByRole('img', {name: /product image/i}));
+    expect(screen.getByText(productMock.title)).toBeInTheDocument();
+    expect(screen.getByText(productMock.price.toString()+productMock.currency.toString())).toBeInTheDocument();
+    expect(screen.getByText(itemMock.quantity)).toBeInTheDocument();
+    expect(screen.getByTestId('cart-product-quantity')).toHaveTextContent('2');
   })
 
   it('increments quantity when + clicked', async () => {
-    render(<CartItem item={itemMock} />)
+    render(<CartItem item={itemMock} />);
 
-    await user.click(screen.getByTestId('cart-increment-product'))
+    await user.click(screen.getByTestId('cart-increment-product'));
 
     expect(setQtyMock).toHaveBeenCalledWith(1, 3)
   })
 
   it('decrements quantity when - clicked', async () => {
-    render(<CartItem item={itemMock} />)
+    render(<CartItem item={itemMock} />);
 
-    await user.click(screen.getByTestId('cart-decrement-product'))
+    await user.click(screen.getByTestId('cart-decrement-product'));
 
-    expect(setQtyMock).toHaveBeenCalledWith(1, 1)
+    expect(setQtyMock).toHaveBeenCalledWith(1, 1);
   })
 
   it('removes item and shows toast when X clicked', async () => {
-    render(<CartItem item={itemMock} />)
+    render(<CartItem item={itemMock} />);
 
-    await user.click(screen.getByTestId('cart-remove-product'))
+    await user.click(screen.getByTestId('cart-remove-product'));
 
-    expect(removeMock).toHaveBeenCalledWith(1)
-    expect(pushToastMock).toHaveBeenCalledWith('Item removed from the cart.')
+    expect(removeMock).toHaveBeenCalledWith(1);
+    expect(pushToastMock).toHaveBeenCalledWith('Item removed from the cart.');
   })
 
 })

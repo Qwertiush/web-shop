@@ -8,7 +8,7 @@ import { useCart } from '../../contexts/CartContext';
 import { useSearch } from '../../contexts/SearchContext';
 import { usePreferences } from '../../contexts/PreferencesContext';
 import type { MenuElementModel } from '../../models/MenuElementModel';
-import { fetchMenu } from '../../data/dummyDB/dbAPI';
+import { fetchMenu, waitForAPI } from '../../data/dummyDB/dbAPI';
 import { LoadingComponent } from '../LoadingComponent/LoadingComponent';
 
 export const Navbar: React.FC = () =>{
@@ -26,6 +26,8 @@ export const Navbar: React.FC = () =>{
 
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
 
+  const [apiReady, setApiReady] = useState<boolean | null>(null);
+
   const handleMobileMenuToggle = () => {
     setIsMobileMenuActive(!isMobileMenuActive);
   };
@@ -39,6 +41,17 @@ export const Navbar: React.FC = () =>{
       navigate(`/${val}`);
     }
   };
+
+  useEffect(()=>{
+  
+      const checkAPI = async () => {
+        const response = await waitForAPI();
+        setApiReady(response);
+      }
+  
+      checkAPI();
+      
+    },[]);
 
   useEffect(()=>{
     const loadMenu = async () => {
@@ -78,6 +91,12 @@ export const Navbar: React.FC = () =>{
 
   const handleLogoPress = () => {
     navigate('/');
+  }
+
+  if(apiReady === null){
+    return (
+      <></>
+    )
   }
 
   if(isLoading){
