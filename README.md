@@ -25,7 +25,7 @@ The project focuses on **client-side filtering, search, pagination, and state ma
 - React Router
 - SCSS
 - Custom REST API (backend for product data, search, filtering)
-- Cypress (testing)
+- Cypress and Vitest (testing)
 
 ---
 
