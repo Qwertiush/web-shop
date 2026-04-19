@@ -13,7 +13,7 @@ The project focuses on **client-side filtering, search, pagination, and state ma
 - Custom toast notifications with stacking support
 - Theme preference persistence
 - Pagination for large lists of products
-- Data fetched from API
+- Data fetched from API (https://github.com/Qwertiush/shop-api)
 - Mobile-friendly UI/UX
 
 ---
@@ -25,7 +25,7 @@ The project focuses on **client-side filtering, search, pagination, and state ma
 - React Router
 - SCSS
 - Custom REST API (backend for product data, search, filtering)
-- Cypress (testing)
+- Cypress and Vitest (testing)
 
 ---
 
