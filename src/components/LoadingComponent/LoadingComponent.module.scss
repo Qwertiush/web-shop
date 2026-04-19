@@ -9,7 +9,9 @@
 /* Inspired by Uiverse.io by arthur_6104 */ 
 .loader .box {
   background-color: -var(--secondary);
-  width: 70vh;
+  width: 70vw;
+  max-width: 600px;
+  min-width: 200px;
   height: 300px;
   padding: 20px;
   border-radius: 20px;
